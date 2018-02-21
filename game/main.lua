@@ -5,3 +5,7 @@
 -----------------------------------------------------------------------------------------
 
 -- Your code here
+
+local composer = require("composer")
+
+composer.gotoScene("scenes.steemit-scene")
