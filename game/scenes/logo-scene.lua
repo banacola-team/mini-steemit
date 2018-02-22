@@ -13,7 +13,7 @@ local logo_timer
 
 local function nextScene()
   local fo_param = { time = 1000, onComplete = function() 
-        composer.gotoScene("scenes.steemit-scene")
+        composer.gotoScene("scenes.login-scene")
     end}
   transition.fadeOut(mini_steemit, fo_param)
 end

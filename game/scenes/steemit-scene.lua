@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local widget = require( "widget" )
+local globalData = require ( "globalData" )
 local json = require("json")
 
 local scene = composer.newScene()
@@ -34,7 +35,7 @@ function scene:create( event )
       left = display.contentCenterX * 0.2,
       top = top_base,
       id = "uiTitle",
-      label = "title",
+      label = "hello " .. globalData.username,
       labelAlign  = "left",
       shape = "rect",
       width = display.contentWidth * 0.8,
