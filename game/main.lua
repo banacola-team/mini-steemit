@@ -8,4 +8,4 @@
 
 local composer = require("composer")
 
-composer.gotoScene("scenes.steemit-scene")
+composer.gotoScene("scenes.logo-scene")
