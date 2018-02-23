@@ -10,10 +10,38 @@ local scene = composer.newScene()
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
 
+-- 图层
+local mainGroup
+local endGroup
+
+-- UI
 local uiTitle = nil
 local uiContent = nil
 local uiTags = nil
 local uiPostButton = nil
+local uiUsername = nil
+local uiCoins = nil
+local uiStatistic = nil
+
+local coins = 0
+local followers = 0
+local posts = 0
+local following = 0
+local gameTimer
+local gameLeftTime = 3 * 60 * 1000
+
+local buttonStatus = {Type=1, Post=2}
+
+-- 函数声明
+local function gameUpdate()
+  gameLeftTime = gameLeftTime - 500
+  print(":: " .. gameLeftTime)
+  
+  if (gameLeftTime <= 0) then
+    timer.cancel(gameTimer)
+    composer.gotoScene("scenes.end-scene")
+  end
+end
 
 -- json init
 local postsJsonInfo = 
@@ -33,9 +61,9 @@ function scene:create( event )
   -- title
   uiTitle = widget.newButton({
       left = display.contentCenterX * 0.2,
-      top = top_base,
+      top = top_base + 80,
       id = "uiTitle",
-      label = "hello " .. globalData.username,
+      label = "title ",
       labelAlign  = "left",
       shape = "rect",
       width = display.contentWidth * 0.8,
@@ -46,7 +74,7 @@ function scene:create( event )
   -- content
   uiContent = widget.newButton({
       left = display.contentCenterX * 0.2,
-      top = top_base + 45,
+      top = top_base + 125,
       id = "uiContent",
       label = "content",
       labelAlign  = "left",
@@ -60,7 +88,7 @@ function scene:create( event )
   -- tags
   uiTags = widget.newButton({
       left = display.contentCenterX * 0.2,
-      top = top_base + 150,
+      top = top_base + 230,
       id = "uiTags",
       label = "content",
       labelAlign  = "left",
@@ -73,10 +101,10 @@ function scene:create( event )
   -- post button
   uiPostButton = widget.newButton(
     {
-      left = 100,
-      top = 270,
+      left = display.contentCenterX * 0.2,
+      top = 320,
       id = "uiPostButton",
-      label = "Post",
+      label = "Type",
       shape = "roundedRect",
       width = 100,
       height = 40,
@@ -92,11 +120,23 @@ function scene:create( event )
       end
     }
   )
+  
+  uiPostButton.buttonStatus = buttonStatus["Type"]
+  
+  uiUsername = display.newText("@" .. globalData.username, display.contentCenterX - 100, 50, 300, 0, native.systemFont, 20);
+  
+  uiCoins = display.newText("$" .. coins .. " STEEM", display.contentWidth - 150, 50, 100, 0, native.systemFont, 20)
+  
+  uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", display.contentCenterX, 100, native.systemFont, 20)
 
   sceneGroup:insert(uiTitle)
-
-
-
+  sceneGroup:insert(uiContent)
+  sceneGroup:insert(uiTags)
+  sceneGroup:insert(uiPostButton)
+  sceneGroup:insert(uiUsername)
+  sceneGroup:insert(uiCoins)
+  sceneGroup:insert(uiStatistic)
+  
 end
 
 
@@ -111,7 +151,8 @@ function scene:show( event )
 
   elseif ( phase == "did" ) then
     -- Code here runs when the scene is entirely on screen
-
+    gameTimer = timer.performWithDelay(500, gameUpdate, -1)
+    
   end
 end
 
@@ -127,7 +168,7 @@ function scene:hide( event )
 
   elseif ( phase == "did" ) then
     -- Code here runs immediately after the scene goes entirely off screen
-
+    
   end
 end
 
