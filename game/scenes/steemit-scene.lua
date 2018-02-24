@@ -110,20 +110,24 @@ function scene:create( event )
       height = 40,
       onRelease = 
       function(event) 
-        local randomIndex = math.random(1, #postsJsonInfo)
-        uiTitle:setLabel(postsJsonInfo[randomIndex]["title"])
-        uiContent:setLabel(postsJsonInfo[randomIndex]["content"])
-        uiTags:setLabel(
-          postsJsonInfo[randomIndex]["tags"][1] .. " " .. 
-          postsJsonInfo[randomIndex]["tags"][2]
-        )
+        if (uiPostButton.buttonStatus == buttonStatus["Post"]) then
+          local randomIndex = math.random(1, #postsJsonInfo)
+          uiTitle:setLabel(postsJsonInfo[randomIndex]["title"])
+          uiContent:setLabel(postsJsonInfo[randomIndex]["content"])
+          uiTags:setLabel(
+            postsJsonInfo[randomIndex]["tags"][1] .. " " .. 
+            postsJsonInfo[randomIndex]["tags"][2]
+          )
+        else
+          
+        end
       end
     }
   )
   
   uiPostButton.buttonStatus = buttonStatus["Type"]
   
-  uiUsername = display.newText("@" .. globalData.username, display.contentCenterX - 100, 50, 300, 0, native.systemFont, 20);
+  uiUsername = display.newText("@" .. globalData.username, display.contentWidth * 0.3, 50, 300, 0, native.systemFont, 20);
   
   uiCoins = display.newText("$" .. coins .. " STEEM", display.contentWidth - 150, 50, 100, 0, native.systemFont, 20)
   
