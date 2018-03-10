@@ -127,11 +127,11 @@ function scene:create( event )
   
   uiPostButton.buttonStatus = buttonStatus["Type"]
   
-  uiUsername = display.newText("@" .. globalData.username, display.contentWidth * 0.3, 50, 300, 0, native.systemFont, 20);
+  uiUsername = display.newText("@" .. globalData.username, globalData.GUI_position.uiUsername.x, globalData.GUI_position.uiUsername.y, globalData.GUI_position.uiUsername.width, globalData.GUI_position.uiUsername.height, native.systemFont, globalData.GUI_position.uiUsername.font);
   
-  uiCoins = display.newText("$" .. coins .. " STEEM", display.contentWidth - 150, 50, 100, 0, native.systemFont, 20)
+  uiCoins = display.newText("$" .. coins .. " STEEM", globalData.GUI_position.uiCoins.x, globalData.GUI_position.uiCoins.y, globalData.GUI_position.uiCoins.width, globalData.GUI_position.uiCoins.height, native.systemFont, globalData.GUI_position.uiCoins.font)
   
-  uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", display.contentCenterX, 100, native.systemFont, 20)
+  uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", globalData.GUI_position.uiStatistic.x, globalData.GUI_position.uiStatistic.y, native.systemFont, globalData.GUI_position.uiStatistic.font)
 
   sceneGroup:insert(uiTitle)
   sceneGroup:insert(uiContent)

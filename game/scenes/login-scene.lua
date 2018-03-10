@@ -58,23 +58,25 @@ function scene:create( event )
 
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
-  txt_username = display.newText( "Input Username: ", 200, display.contentCenterY, native.systemFont, 36 )
+  -- print(globalData.GUI_position.loginText.y)
   
-  ui_textBox = native.newTextField( display.contentWidth * 0.7, display.contentCenterY, 320, 36 )
+  txt_username = display.newText( "Input Username: ", globalData.GUI_position.loginText.x, globalData.GUI_position.loginText.y, native.systemFont, globalData.GUI_position.loginText.font )
+  
+  ui_textBox = native.newTextField( globalData.GUI_position.loginTextBox.x, globalData.GUI_position.loginTextBox.y, globalData.GUI_position.loginTextBox.width, globalData.GUI_position.loginTextBox.height )
   ui_textBox:addEventListener("userInput", textListener)
   
-  error_msg = display.newText( "Exceeded 32 characters", display.contentCenterX, display.contentCenterY + 100, native.systemFont, 36 )
+  error_msg = display.newText( "Exceeded 32 characters", globalData.GUI_position.loginErrMsg.x, globalData.GUI_position.loginErrMsg.y, native.systemFont, globalData.GUI_position.loginErrMsg.font )
   
   error_msg.alpha = 0
   
   submit_btn = widget.newButton({
-      x = display.contentCenterX,
-      y = display.contentCenterY + 100,
+      x = globalData.GUI_position.loginSubmitBtn.x,
+      y = globalData.GUI_position.loginSubmitBtn.y,
       id = "uiLoginButton",
       label = "Login",
       shape = "roundedRect",
-      width = 100,
-      height = 40,
+      width = globalData.GUI_position.loginSubmitBtn.width,
+      height = globalData.GUI_position.loginSubmitBtn.height,
       onRelease = 
       function(event) 
         local username = ui_textBox.text
