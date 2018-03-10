@@ -31,11 +31,22 @@ local gameTimer
 local gameLeftTime = 3 * 60 * 1000
 
 local buttonStatus = {Type=1, Post=2}
+local titleArray = nil
+local contentArray = nil
+local tagsArray = nil
+local wordsIndex = 1
+local titleFinished = false
+local contentFinished = false
+local tagsFinished = false
+
+-- json init
+local postsJsonInfo = 
+json.decodeFile( system.pathForFile( "json-content/posts.json", system.ResourceDirectory ) )
 
 -- 函数声明
 local function gameUpdate()
   gameLeftTime = gameLeftTime - 500
-  print(":: " .. gameLeftTime)
+  -- print(":: " .. gameLeftTime)
   
   if (gameLeftTime <= 0) then
     timer.cancel(gameTimer)
@@ -43,9 +54,94 @@ local function gameUpdate()
   end
 end
 
--- json init
-local postsJsonInfo = 
-json.decodeFile( system.pathForFile( "json-content/posts.json", system.ResourceDirectory ) )
+local function typeTitle()
+  if (wordsIndex <= #titleArray) then
+    local oldTxt = uiTitle:getLabel()
+      if (#oldTxt == 0) then
+        uiTitle:setLabel(titleArray[wordsIndex])
+      else
+        uiTitle:setLabel(oldTxt .. " " .. titleArray[wordsIndex])
+      end
+      wordsIndex = wordsIndex + 1
+  else
+      titleFinished = true
+      wordsIndex = 1
+  end 
+end
+
+local function splitString(input, delimiter)
+    input = tostring(input)
+    delimiter = tostring(delimiter)
+    if (delimiter=='') then return false end
+    local pos,arr = 0, {}
+    for st,sp in function() return string.find(input, delimiter, pos, true) end do
+        table.insert(arr, string.sub(input, pos, st - 1))
+        pos = sp + 1
+    end
+    table.insert(arr, string.sub(input, pos))
+    return arr
+end
+
+local function pickupJson()
+  local randomIndex = math.random(1, #postsJsonInfo)
+  local title = postsJsonInfo[randomIndex]["title"]
+  local content = postsJsonInfo[randomIndex]["content"]
+  local tags = 
+    postsJsonInfo[randomIndex]["tags"][1] .. " " .. 
+    postsJsonInfo[randomIndex]["tags"][2]
+  
+  titleArray = splitString(title, " ")
+  contentArray = splitString(content, " ")
+  tagsArray = splitString(tags, " ")
+end
+
+local function typeContent()
+  if (wordsIndex <= #contentArray) then
+      local oldTxt = uiContent:getLabel()
+      if (#oldTxt == 0) then
+        uiContent:setLabel(contentArray[wordsIndex])
+      else
+        uiContent:setLabel(oldTxt .. " " .. contentArray[wordsIndex])
+      end
+      wordsIndex = wordsIndex + 1
+    else
+      contentFinished = true
+      wordsIndex = 1
+    end
+end
+
+local function typeTag()
+  if (wordsIndex <= #tagsArray) then
+      local oldTxt = uiTags:getLabel()
+      if (#oldTxt == 0) then
+        uiTags:setLabel(tagsArray[wordsIndex])
+      else
+        uiTags:setLabel(oldTxt .. " " .. tagsArray[wordsIndex])
+      end
+      wordsIndex = wordsIndex + 1
+    else
+      tagsFinished = true
+      wordsIndex = 1
+    end
+end
+
+local function typeText()
+  if (titleFinished == false) then
+    typeTitle()
+  elseif (contentFinished == false) then
+    typeContent()
+  elseif (tagsFinished == false) then
+    typeTag()
+  else
+    uiPostButton.buttonStatus = buttonStatus["Post"]
+    uiPostButton:setLabel("Post");
+  end
+end
+
+local function postText()
+  print("post")
+end
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -63,7 +159,7 @@ function scene:create( event )
       left = display.contentCenterX * 0.2,
       top = top_base + 80,
       id = "uiTitle",
-      label = "title ",
+      label = "",
       labelAlign  = "left",
       shape = "rect",
       width = display.contentWidth * 0.8,
@@ -76,7 +172,7 @@ function scene:create( event )
       left = display.contentCenterX * 0.2,
       top = top_base + 125,
       id = "uiContent",
-      label = "content",
+      label = "",
       labelAlign  = "left",
       labelYOffset = -40,
       shape = "rect",
@@ -90,7 +186,7 @@ function scene:create( event )
       left = display.contentCenterX * 0.2,
       top = top_base + 230,
       id = "uiTags",
-      label = "content",
+      label = "",
       labelAlign  = "left",
       shape = "rect",
       width = display.contentWidth * 0.8,
@@ -111,15 +207,9 @@ function scene:create( event )
       onRelease = 
       function(event) 
         if (uiPostButton.buttonStatus == buttonStatus["Post"]) then
-          local randomIndex = math.random(1, #postsJsonInfo)
-          uiTitle:setLabel(postsJsonInfo[randomIndex]["title"])
-          uiContent:setLabel(postsJsonInfo[randomIndex]["content"])
-          uiTags:setLabel(
-            postsJsonInfo[randomIndex]["tags"][1] .. " " .. 
-            postsJsonInfo[randomIndex]["tags"][2]
-          )
+          postText()
         else
-          
+          typeText()
         end
       end
     }
@@ -133,6 +223,8 @@ function scene:create( event )
   
   uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", globalData.GUI_position.uiStatistic.x, globalData.GUI_position.uiStatistic.y, native.systemFont, globalData.GUI_position.uiStatistic.font)
 
+  pickupJson()
+  
   sceneGroup:insert(uiTitle)
   sceneGroup:insert(uiContent)
   sceneGroup:insert(uiTags)
@@ -140,7 +232,7 @@ function scene:create( event )
   sceneGroup:insert(uiUsername)
   sceneGroup:insert(uiCoins)
   sceneGroup:insert(uiStatistic)
-  
+
 end
 
 
@@ -152,7 +244,6 @@ function scene:show( event )
 
   if ( phase == "will" ) then
     -- Code here runs when the scene is still off screen (but is about to come on screen)
-
   elseif ( phase == "did" ) then
     -- Code here runs when the scene is entirely on screen
     gameTimer = timer.performWithDelay(500, gameUpdate, -1)
@@ -187,7 +278,6 @@ function scene:destroy( event )
   sceneGroup = nil
 
 end
-
 
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
