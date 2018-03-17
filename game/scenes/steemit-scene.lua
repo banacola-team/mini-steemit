@@ -88,7 +88,7 @@ local function splitString(input, delimiter)
 end
 
 local function pickupJson()
-  local randomIndex = 8--math.random(1, #postsJsonInfo)
+  local randomIndex = math.random(1, #postsJsonInfo)
   local title = postsJsonInfo[randomIndex]["title"]
   local content = postsJsonInfo[randomIndex]["content"]
   local tags = 
@@ -162,8 +162,8 @@ local function postText()
   
   print("here")
   -- 启动输入，状态变为type
-  -- uiPostButton.buttonStatus = buttonStatus["Type"]
-  -- uiPostButton:setEnabled(true)
+  uiPostButton.buttonStatus = buttonStatus["Type"]
+  uiPostButton:setEnabled(true)
 end
 
 -- -----------------------------------------------------------------------------------
