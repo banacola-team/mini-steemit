@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local widget = require( "widget" )
 local globalData = require ( "globalData" )
 local json = require("json")
+local fx = require( "com.ponywolf.ponyfx" )
 
 local scene = composer.newScene()
 
@@ -22,6 +23,7 @@ local uiPostButton = nil
 local uiUsername = nil
 local uiCoins = nil
 local uiStatistic = nil
+local uiMail = nil
 
 local coins = 0
 local followers = 0
@@ -75,7 +77,10 @@ local function splitString(input, delimiter)
     if (delimiter=='') then return false end
     local pos,arr = 0, {}
     for st,sp in function() return string.find(input, delimiter, pos, true) end do
-        table.insert(arr, string.sub(input, pos, st - 1))
+        local tmp = string.sub(input, pos, st - 1)
+        if (#tmp > 0) then
+          table.insert(arr, tmp)
+        end
         pos = sp + 1
     end
     table.insert(arr, string.sub(input, pos))
@@ -83,7 +88,7 @@ local function splitString(input, delimiter)
 end
 
 local function pickupJson()
-  local randomIndex = math.random(1, #postsJsonInfo)
+  local randomIndex = 8--math.random(1, #postsJsonInfo)
   local title = postsJsonInfo[randomIndex]["title"]
   local content = postsJsonInfo[randomIndex]["content"]
   local tags = 
@@ -128,18 +133,37 @@ end
 local function typeText()
   if (titleFinished == false) then
     typeTitle()
-  elseif (contentFinished == false) then
+  end
+  if (titleFinished and contentFinished == false) then
     typeContent()
-  elseif (tagsFinished == false) then
+  end  
+  if (titleFinished and contentFinished and tagsFinished == false) then
     typeTag()
-  else
+  end  
+  if (titleFinished and contentFinished and tagsFinished) then
     uiPostButton.buttonStatus = buttonStatus["Post"]
     uiPostButton:setLabel("Post");
   end
 end
 
+local function playMailAnim()
+  uiMail.alpha = 1
+  fx.bounce(uiMail)
+end
+
 local function postText()
   print("post")
+  -- 屏蔽输入
+  uiPostButton:setEnabled(false)
+  -- 准备下一个json
+  pickupJson()
+  -- 播放动画 1. 飞出 2. 增加1
+  playMailAnim()
+  
+  print("here")
+  -- 启动输入，状态变为type
+  -- uiPostButton.buttonStatus = buttonStatus["Type"]
+  -- uiPostButton:setEnabled(true)
 end
 
 -- -----------------------------------------------------------------------------------
@@ -223,6 +247,11 @@ function scene:create( event )
   
   uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", globalData.GUI_position.uiStatistic.x, globalData.GUI_position.uiStatistic.y, native.systemFont, globalData.GUI_position.uiStatistic.font)
 
+  uiMail = display.newImageRect("../design/logo/mini-steemit-game-logo.png", 128, 128);
+  uiMail.x = display.contentCenterX
+  uiMail.y = display.contentCenterY
+  uiMail.alpha = 0
+  
   pickupJson()
   
   sceneGroup:insert(uiTitle)
@@ -232,7 +261,7 @@ function scene:create( event )
   sceneGroup:insert(uiUsername)
   sceneGroup:insert(uiCoins)
   sceneGroup:insert(uiStatistic)
-
+  sceneGroup:insert(uiMail)
 end
 
 
