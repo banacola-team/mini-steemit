@@ -28,7 +28,7 @@ function scene:create( event )
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
   
-  mini_steemit = display.newImageRect("../design/logo/mini-steemit-game-logo.png", 256, 256)
+  mini_steemit = display.newImageRect("images/logo/mini-steemit-game-logo.png", 256, 256)
   mini_steemit.x = display.contentCenterX
   mini_steemit.y = display.contentCenterY
   mini_steemit:scale(0.5, 0.5)
