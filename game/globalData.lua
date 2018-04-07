@@ -56,6 +56,13 @@ local M=
       y = 100,
       font = 20,
     },
+    
+    uiRewards = 
+    {
+      x = display.contentCenterX,
+      y = display.contentCenterY - 150,
+      font = 24
+    }
   }
 }
 

@@ -52,6 +52,8 @@ local function gameUpdate()
   
   if (gameLeftTime <= 0) then
     timer.cancel(gameTimer)
+    globalData.posts = posts
+    globalData.coins = coins
     composer.gotoScene("scenes.end-scene")
   end
 end
@@ -148,21 +150,37 @@ end
 
 local function playMailAnim()
   uiMail.alpha = 1
-  fx.bounce(uiMail)
+  transition.fadeOut(uiMail, {time=500})
 end
 
 local function postText()
   print("post")
+  posts = posts + 1
+  coins = coins + math.random(1,10);
+  
   -- 屏蔽输入
   uiPostButton:setEnabled(false)
   -- 准备下一个json
   pickupJson()
+  -- 清除
+  uiTitle:setLabel("")
+  uiContent:setLabel("")
+  uiTags:setLabel("")
+  titleFinished = false
+  contentFinished = false
+  tagsFinished = false
+  
   -- 播放动画 1. 飞出 2. 增加1
   playMailAnim()
   
   print("here")
+  
+  
+  
+  
   -- 启动输入，状态变为type
   uiPostButton.buttonStatus = buttonStatus["Type"]
+  uiPostButton:setLabel("Type")
   uiPostButton:setEnabled(true)
 end
 
