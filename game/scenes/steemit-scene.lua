@@ -3,6 +3,7 @@ local widget = require( "widget" )
 local globalData = require ( "globalData" )
 local json = require("json")
 local fx = require( "com.ponywolf.ponyfx" )
+local label = require( "Label" )
 
 local scene = composer.newScene()
 
@@ -40,12 +41,21 @@ local wordsIndex = 1
 local titleFinished = false
 local contentFinished = false
 local tagsFinished = false
-
+local prevTxt = ""
 -- json init
 local postsJsonInfo = 
 json.decodeFile( system.pathForFile( "json-content/posts.json", system.ResourceDirectory ) )
 
 -- 函数声明
+local function wlen( s )
+    local len,k=0,1
+    while k<=#s do
+      len=len+1
+      if string.byte(s,k)<=190 then k=k+1 else k=k+2 end
+      end
+    return len
+end
+
 local function gameUpdate()
   gameLeftTime = gameLeftTime - 500
   -- print(":: " .. gameLeftTime)
@@ -100,15 +110,20 @@ local function pickupJson()
   titleArray = splitString(title, " ")
   contentArray = splitString(content, " ")
   tagsArray = splitString(tags, " ")
+  prevTxt = ""
 end
 
 local function typeContent()
   if (wordsIndex <= #contentArray) then
-      local oldTxt = uiContent:getLabel()
-      if (#oldTxt == 0) then
-        uiContent:setLabel(contentArray[wordsIndex])
+      print("old: " .. prevTxt)
+      if (#prevTxt == 0) then
+        -- uiContent:setLabel(contentArray[wordsIndex])
+        prevTxt = contentArray[wordsIndex]
+        label.setLabel(uiContent, prevTxt)
       else
-        uiContent:setLabel(oldTxt .. " " .. contentArray[wordsIndex])
+        prevTxt = prevTxt .. " " .. contentArray[wordsIndex]
+        -- uiContent:setLabel(txt)
+        label.setLabel(uiContent, prevTxt)
       end
       wordsIndex = wordsIndex + 1
     else
@@ -210,19 +225,21 @@ function scene:create( event )
   uiTitle:setEnabled(false)
 
   -- content
-  uiContent = widget.newButton({
-      left = display.contentCenterX * 0.2,
-      top = top_base + 125,
-      id = "uiContent",
-      label = "",
-      labelAlign  = "left",
-      labelYOffset = -40,
-      shape = "rect",
-      width = display.contentWidth * 0.8,
-      height = 100,
-    })
-  uiTitle:setEnabled(false)
-
+  -- uiContent = widget.newButton({
+  --    left = display.contentCenterX * 0.2,
+  --    top = top_base + 125,
+  --    id = "uiContent",
+  --    label = "",
+  --    labelAlign  = "left",
+  --    labelYOffset = -40,
+  --    shape = "rect",
+  --    width = display.contentWidth * 0.8,
+  --    height = 100,
+  --  })
+  
+  uiContent = label.new({x=display.contentCenterX, y=top_base+175, width=display.contentWidth * 0.8, height=100})
+  label.setLabel(uiContent, prevTxt)
+  
   -- tags
   uiTags = widget.newButton({
       left = display.contentCenterX * 0.2,

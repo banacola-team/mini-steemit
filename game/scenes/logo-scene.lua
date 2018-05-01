@@ -1,6 +1,5 @@
 
 local composer = require( "composer" )
-
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------
@@ -38,7 +37,6 @@ function scene:create( event )
       logo_timer = timer.performWithDelay(1000, nextScene)
     end}
   transition.fadeIn(mini_steemit, fi_param)
-  
 end
 
 
