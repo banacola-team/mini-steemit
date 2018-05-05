@@ -1,5 +1,6 @@
 
 local composer = require( "composer" )
+local globalData = require ( "globalData" )
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------
@@ -37,6 +38,13 @@ function scene:create( event )
       logo_timer = timer.performWithDelay(1000, nextScene)
     end}
   transition.fadeIn(mini_steemit, fi_param)
+  
+  sceneGroup:insert(mini_steemit)
+  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  sceneGroup:insert(background)
+  background:toBack()
 end
 
 
@@ -77,7 +85,8 @@ function scene:destroy( event )
 
 	local sceneGroup = self.view
 	-- Code here runs prior to the removal of scene's view
-
+  sceneGroup:removeSelf()
+  sceneGroup = nil
 end
 
 

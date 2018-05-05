@@ -24,6 +24,7 @@ end
 
 function M.setLabel(instance, txt)
   local rect = instance[1]
+  instance:remove(instance[2])  
   local text = display.newText(txt, rect.x, rect.y, rect.w, rect.h, native.systemFont, 16)
   instance:insert(2, text)
   text:toFront()

@@ -51,6 +51,12 @@ function scene:create( event )
   uiReward = display.newText("Gain Rewards!", globalData.GUI_position.uiRewards.x, globalData.GUI_position.uiRewards.y, native.systemFont,globalData.GUI_position.uiRewards.font)
   backGrp:insert(uiReward)
   
+  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  sceneGroup:insert(background)
+  background:toBack()
+  
   sceneGroup:insert(backGrp)
   sceneGroup:insert(foreGrp)
 end

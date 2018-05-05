@@ -21,6 +21,7 @@ local uiTitle = nil
 local uiContent = nil
 local uiTags = nil
 local uiPostButton = nil
+local uiTypeButton = nil
 local uiUsername = nil
 local uiCoins = nil
 local uiStatistic = nil
@@ -42,6 +43,9 @@ local titleFinished = false
 local contentFinished = false
 local tagsFinished = false
 local prevTxt = ""
+local currentStatus = buttonStatus["Type"]
+local tenSecond = 10 * 1000
+local click = 0
 -- json init
 local postsJsonInfo = 
 json.decodeFile( system.pathForFile( "json-content/posts.json", system.ResourceDirectory ) )
@@ -56,9 +60,16 @@ local function wlen( s )
     return len
 end
 
-local function gameUpdate()
+local function updateUI() 
+  uiStatistic.text = followers .. " followers | " .. posts .. " posts | " .. following .. " followings"
+  uiCoins.text = "$" .. coins .. " STEEM"
+end
+
+local function gameUpdate()  
   gameLeftTime = gameLeftTime - 500
   -- print(":: " .. gameLeftTime)
+  tenSecond = tenSecond - 500
+  local fire = false
   
   if (gameLeftTime <= 0) then
     timer.cancel(gameTimer)
@@ -66,6 +77,19 @@ local function gameUpdate()
     globalData.coins = coins
     composer.gotoScene("scenes.end-scene")
   end
+  
+  if (tenSecond <= 0) then
+    fire = true
+    tenSecond = 10 * 1000
+  end  
+  
+  if (posts > 0 and fire) then
+    following = following + math.random(1, 50)
+    followers = followers + click/10 * 100
+    click = 0
+  end  
+  
+  updateUI()
 end
 
 local function typeTitle()
@@ -115,7 +139,7 @@ end
 
 local function typeContent()
   if (wordsIndex <= #contentArray) then
-      print("old: " .. prevTxt)
+      
       if (#prevTxt == 0) then
         -- uiContent:setLabel(contentArray[wordsIndex])
         prevTxt = contentArray[wordsIndex]
@@ -150,26 +174,35 @@ end
 local function typeText()
   if (titleFinished == false) then
     typeTitle()
+    click = click + 1
   end
   if (titleFinished and contentFinished == false) then
     typeContent()
+    click = click + 1
   end  
   if (titleFinished and contentFinished and tagsFinished == false) then
     typeTag()
+    click = click + 1
   end  
   if (titleFinished and contentFinished and tagsFinished) then
-    uiPostButton.buttonStatus = buttonStatus["Post"]
-    uiPostButton:setLabel("Post");
+    currentStatus = buttonStatus["Post"]
+    uiTypeButton.isVisible = false
+    uiPostButton.isVisible = true
   end
+end
+
+local function refreshStatistic()
+  transition.fadeOut(uiMail,{time=200})
+  transition.moveTo(uiMail, {x=display.contentCenterX, y=display.contentCenterY})
+  coins = coins + 100* (1 + posts) + followers * 10
 end
 
 local function playMailAnim()
   uiMail.alpha = 1
-  transition.fadeOut(uiMail, {time=500})
+  transition.moveTo(uiMail, {x=uiStatistic.x, y=uiStatistic.y, time=500, onComplete=refreshStatistic})
 end
 
 local function postText()
-  print("post")
   posts = posts + 1
   coins = coins + math.random(1,10);
   
@@ -179,7 +212,7 @@ local function postText()
   pickupJson()
   -- 清除
   uiTitle:setLabel("")
-  uiContent:setLabel("")
+  label.setLabel(uiContent, "")
   uiTags:setLabel("")
   titleFinished = false
   contentFinished = false
@@ -188,14 +221,10 @@ local function postText()
   -- 播放动画 1. 飞出 2. 增加1
   playMailAnim()
   
-  print("here")
-  
-  
-  
-  
   -- 启动输入，状态变为type
-  uiPostButton.buttonStatus = buttonStatus["Type"]
-  uiPostButton:setLabel("Type")
+  currentStatus = buttonStatus["Type"]
+  uiPostButton.isVisible = false
+  uiTypeButton.isVisible = true
   uiPostButton:setEnabled(true)
 end
 
@@ -223,19 +252,6 @@ function scene:create( event )
       height = 40,
     })
   uiTitle:setEnabled(false)
-
-  -- content
-  -- uiContent = widget.newButton({
-  --    left = display.contentCenterX * 0.2,
-  --    top = top_base + 125,
-  --    id = "uiContent",
-  --    label = "",
-  --    labelAlign  = "left",
-  --    labelYOffset = -40,
-  --    shape = "rect",
-  --    width = display.contentWidth * 0.8,
-  --    height = 100,
-  --  })
   
   uiContent = label.new({x=display.contentCenterX, y=top_base+175, width=display.contentWidth * 0.8, height=100})
   label.setLabel(uiContent, prevTxt)
@@ -254,27 +270,40 @@ function scene:create( event )
   uiTags:setEnabled(false)
 
   -- post button
+  uiTypeButton = widget.newButton(
+    {
+      left = display.contentCenterX * 0.2,
+      top = 320,
+      id = "uiPostButton",
+      defaultFile = "images/in-game/type-normal.png",
+      overFile = "images/in-game/type-pressed.png",
+      width = 100,
+      height = 40,
+      onRelease = 
+      function(event) 
+          typeText()        
+      end
+    }
+  )
+  
   uiPostButton = widget.newButton(
     {
       left = display.contentCenterX * 0.2,
       top = 320,
       id = "uiPostButton",
-      label = "Type",
-      shape = "roundedRect",
+      defaultFile = "images/in-game/post-normal.png",
+      overFile = "images/in-game/post-pressed.png",
       width = 100,
       height = 40,
       onRelease = 
       function(event) 
-        if (uiPostButton.buttonStatus == buttonStatus["Post"]) then
           postText()
-        else
-          typeText()
-        end
       end
     }
   )
   
-  uiPostButton.buttonStatus = buttonStatus["Type"]
+  currentStatus = buttonStatus["Type"]
+  uiPostButton.isVisible = false
   
   uiUsername = display.newText("@" .. globalData.username, globalData.GUI_position.uiUsername.x, globalData.GUI_position.uiUsername.y, globalData.GUI_position.uiUsername.width, globalData.GUI_position.uiUsername.height, native.systemFont, globalData.GUI_position.uiUsername.font);
   
@@ -282,7 +311,7 @@ function scene:create( event )
   
   uiStatistic = display.newText(followers .. " followers | " .. posts .. " posts | " .. following .. " followings", globalData.GUI_position.uiStatistic.x, globalData.GUI_position.uiStatistic.y, native.systemFont, globalData.GUI_position.uiStatistic.font)
 
-  uiMail = display.newImageRect("../design/logo/mini-steemit-game-logo.png", 128, 128);
+  uiMail = display.newImageRect("images/in-game/email.png", 64, 40);
   uiMail.x = display.contentCenterX
   uiMail.y = display.contentCenterY
   uiMail.alpha = 0
@@ -293,10 +322,18 @@ function scene:create( event )
   sceneGroup:insert(uiContent)
   sceneGroup:insert(uiTags)
   sceneGroup:insert(uiPostButton)
+  sceneGroup:insert(uiTypeButton)
   sceneGroup:insert(uiUsername)
   sceneGroup:insert(uiCoins)
   sceneGroup:insert(uiStatistic)
   sceneGroup:insert(uiMail)
+  
+  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  sceneGroup:insert(background)
+  background:toBack()
+  
 end
 
 

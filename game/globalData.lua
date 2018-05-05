@@ -45,7 +45,7 @@ local M=
     {
       x = display.contentWidth - 150,
       y = 50,
-      width = 100,
+      width = 200,
       height = 0,
       font = 20,
     },
@@ -63,7 +63,10 @@ local M=
       y = display.contentCenterY - 150,
       font = 24
     }
-  }
+  },
+  
+  
+  
 }
 
   

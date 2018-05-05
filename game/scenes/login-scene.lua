@@ -2,6 +2,7 @@
 local composer = require( "composer" )
 local widget = require( "widget" )
 local globalData = require( "globalData" )
+
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------
@@ -94,6 +95,12 @@ function scene:create( event )
   sceneGroup:insert(error_msg)
   sceneGroup:insert(txt_username)
   
+  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  background.x = display.contentCenterX
+  background.y = display.contentCenterY
+  sceneGroup:insert(background)
+  background:toBack()
+  
 end
 
 
@@ -135,7 +142,8 @@ function scene:destroy( event )
 
 	local sceneGroup = self.view
 	-- Code here runs prior to the removal of scene's view
-
+  sceneGroup:removeSelf()
+  sceneGroup = nil
 end
 
 
