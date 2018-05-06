@@ -85,6 +85,18 @@ function scene:destroy( event )
 
 	local sceneGroup = self.view
 	-- Code here runs prior to the removal of scene's view
+  
+  if (logo_timer ~= nil) then
+      timer.cancel(logo_timer)
+  end
+  
+  logo_timer = nil
+  
+  scene:removeEventListener( "create", scene )
+  scene:removeEventListener( "show", scene )
+  scene:removeEventListener( "hide", scene )
+  scene:removeEventListener( "destroy", scene )
+
   sceneGroup:removeSelf()
   sceneGroup = nil
 end

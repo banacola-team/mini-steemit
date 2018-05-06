@@ -73,6 +73,7 @@ local function gameUpdate()
   
   if (gameLeftTime <= 0) then
     timer.cancel(gameTimer)
+    gameTimer = nil
     globalData.posts = posts
     globalData.coins = coins
     composer.gotoScene("scenes.end-scene")
@@ -192,8 +193,7 @@ local function typeText()
 end
 
 local function refreshStatistic()
-  transition.fadeOut(uiMail,{time=200})
-  transition.moveTo(uiMail, {x=display.contentCenterX, y=display.contentCenterY})
+  transition.fadeOut(uiMail,{time=200, onComplete=function() transition.moveTo(uiMail, {x=display.contentCenterX, y=display.contentCenterY}) end})
   coins = coins + 100* (1 + posts) + followers * 10
 end
 
@@ -374,7 +374,18 @@ function scene:destroy( event )
 
   local sceneGroup = self.view
   -- Code here runs prior to the removal of scene's view
+  
+  if (gameTimer ~= nil) then
+    timer.cancel(gameTimer)
+  end
 
+  gameTimer = nil
+  
+  scene:removeEventListener( "create", scene )
+  scene:removeEventListener( "show", scene )
+  scene:removeEventListener( "hide", scene )
+  scene:removeEventListener( "destroy", scene )
+  
   sceneGroup:removeSelf()
   sceneGroup = nil
 

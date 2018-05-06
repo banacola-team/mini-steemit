@@ -99,7 +99,11 @@ function scene:destroy( event )
 
 	local sceneGroup = self.view
 	-- Code here runs prior to the removal of scene's view
-
+  scene:removeEventListener( "create", scene )
+  scene:removeEventListener( "show", scene )
+  scene:removeEventListener( "hide", scene )
+  scene:removeEventListener( "destroy", scene )
+  
 end
 
 
