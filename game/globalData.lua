@@ -62,10 +62,17 @@ local M=
       x = display.contentCenterX,
       y = display.contentCenterY - 150,
       font = 24
+    },
+    
+    uiTimer = 
+    {
+      x = display.contentCenterX,
+      y = 50,
+      font = 24
     }
   },
   
-  
+  GameTime = 1
   
 }
 
