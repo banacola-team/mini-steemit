@@ -26,13 +26,15 @@ local uiUsername = nil
 local uiCoins = nil
 local uiStatistic = nil
 local uiMail = nil
+local uiTimer = nil
 
+-- local variables
 local coins = 0
 local followers = 0
 local posts = 0
 local following = 0
 local gameTimer
-local gameLeftTime = 3 * 60 * 1000
+local gameLeftTime = 60 * 1000 * globalData.GameTime
 
 local buttonStatus = {Type=1, Post=2}
 local titleArray = nil
@@ -44,7 +46,9 @@ local contentFinished = false
 local tagsFinished = false
 local prevTxt = ""
 local currentStatus = buttonStatus["Type"]
+local second = 1000
 local tenSecond = 10 * 1000
+local minute = 60
 local click = 0
 -- json init
 local postsJsonInfo = 
@@ -69,6 +73,7 @@ local function gameUpdate()
   gameLeftTime = gameLeftTime - 500
   -- print(":: " .. gameLeftTime)
   tenSecond = tenSecond - 500
+  second = second - 500
   local fire = false
   
   if (gameLeftTime <= 0) then
@@ -83,6 +88,16 @@ local function gameUpdate()
     fire = true
     tenSecond = 10 * 1000
   end  
+  
+  if (second <= 0) then
+    second = 1000
+    minute = minute - 1
+    
+    if (minute <= 15) then
+      uiTimer:setFillColor(1, 0, 0, 1);
+    end
+    uiTimer.text = minute .. " seconds"
+  end
   
   if (posts > 0 and fire) then
     following = following + math.random(1, 50)
@@ -316,6 +331,8 @@ function scene:create( event )
   uiMail.y = display.contentCenterY
   uiMail.alpha = 0
   
+  uiTimer = display.newText("60 seconds", globalData.GUI_position.uiTimer.x, globalData.GUI_position.uiTimer.y, native.systemFont, globalData.GUI_position.uiTimer.font)
+  
   pickupJson()
   
   sceneGroup:insert(uiTitle)
@@ -327,6 +344,7 @@ function scene:create( event )
   sceneGroup:insert(uiCoins)
   sceneGroup:insert(uiStatistic)
   sceneGroup:insert(uiMail)
+  sceneGroup:insert(uiTimer)
   
   local background = display.newImage("images/in-game/background.png", 1024, 768)
   background.x = display.contentCenterX

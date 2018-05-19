@@ -25,9 +25,9 @@ function scene:create( event )
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
   
-  print("End Scene")
-  print("Post:" .. globalData.posts)
-  print("Coins:" .. globalData.coins)
+  --print("End Scene")
+  --print("Post:" .. globalData.posts)
+  --print("Coins:" .. globalData.coins)
   
   backGrp = display.newGroup()
   foreGrp = display.newGroup()
