@@ -1,9 +1,17 @@
 [
   {
     "title": "欢迎您体验这个迷你steemit小游戏",
-    "content": "希望通过这个迷你小游戏，能让您尽快了解steemit的基本功能，以及如何赚到大把大把的steem币哟！^_^",
+    "content": "希望通过这个迷你小游戏，能让您尽快了解steemit的基本功能，如何玩转CN区，以及如何赚到大把大把的steem币哟！^_^",
     "tags": [
       "mini-steemit"
+    ]
+  },
+  {
+    "title": "如何快速注册steemit账号",
+    "content": "嗯，您可以尝试 https://cnsteem.io/ 花一点小钱，快速注册成功！",
+    "tags": [
+      "mini-steemit",
+      "cnsteem.io"
     ]
   }
 ]
