@@ -72,8 +72,17 @@ local M=
     }
   },
   
-  GameTime = 1
+  GameTime = 1,
+  GameLanguage = "en",
   
+  GameRewards = 
+  {
+    "images/in-game/rewards/dolphin.png",
+    "images/in-game/rewards/minnow.png",
+    "images/in-game/rewards/orca.png",
+    "images/in-game/rewards/redfish.png",
+    "images/in-game/rewards/whale.png",
+  }
 }
 
   

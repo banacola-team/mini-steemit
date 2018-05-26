@@ -51,8 +51,8 @@ local tenSecond = 10 * 1000
 local minute = 60
 local click = 0
 -- json init
-local postsJsonInfo = 
-json.decodeFile( system.pathForFile( "json-content/posts.json", system.ResourceDirectory ) )
+local postsJsonInfo = nil
+
 
 -- 函数声明
 local function wlen( s )
@@ -143,9 +143,13 @@ local function pickupJson()
   local randomIndex = math.random(1, #postsJsonInfo)
   local title = postsJsonInfo[randomIndex]["title"]
   local content = postsJsonInfo[randomIndex]["content"]
-  local tags = 
-    postsJsonInfo[randomIndex]["tags"][1] .. " " .. 
-    postsJsonInfo[randomIndex]["tags"][2]
+  local tags = ""
+  local array = postsJsonInfo[randomIndex]["tags"]
+  
+  for i=1, #array do
+    local item = array[i]
+    tags = tags .. " " .. item
+  end
   
   titleArray = splitString(title, " ")
   contentArray = splitString(content, " ")
@@ -251,7 +255,13 @@ end
 function scene:create( event )
 
   local sceneGroup = self.view
+  
   -- Code here runs when the scene is first created but has not yet appeared on screen
+  if (globalData.GameLanguage == "en") then
+    postsJsonInfo = json.decodeFile( system.pathForFile( "json-content/posts_en-US.json", system.ResourceDirectory ) )
+  else  
+    postsJsonInfo = json.decodeFile( system.pathForFile( "json-content/posts_zh-CN.json", system.ResourceDirectory ) )
+  end
 
   local top_base = display.contentCenterY * 0.2
 
@@ -332,7 +342,7 @@ function scene:create( event )
   uiMail.alpha = 0
   
   uiTimer = display.newText("60 seconds", globalData.GUI_position.uiTimer.x, globalData.GUI_position.uiTimer.y, native.systemFont, globalData.GUI_position.uiTimer.font)
-  
+
   pickupJson()
   
   sceneGroup:insert(uiTitle)

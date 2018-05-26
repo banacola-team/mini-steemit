@@ -38,7 +38,10 @@ function scene:create( event )
   --myBox:setFillColor(0,0,0)
   --backGrp:insert(myBox)
   
-  badge = display.newImageRect("../design/logo/mini-steemit-game-logo.png", 128, 128);
+  local allBages = globalData.GameRewards
+  local rand = math.random(1, #allBages)
+  
+  badge = display.newImageRect(allBages[rand], 128, 128);
   badge.x = display.contentCenterX
   badge.y = display.contentCenterY
   foreGrp:insert(badge)

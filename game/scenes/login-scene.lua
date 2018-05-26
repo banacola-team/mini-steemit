@@ -16,6 +16,10 @@ local error_msg
 local show = false 
 local err_timer
 local submit_btn
+local radioGroup = nil
+local uiTxtLanguage = nil
+local uiEnglish = nil
+local uiChinese = nil
 
 local function hideError()
   transition.fadeOut(error_msg, {time=500, onComplete = function() show = false end})
@@ -50,6 +54,19 @@ local function textListener(event)
     end 
   end
 end
+
+local function onSwitchPress( event )
+    local switch = event.target
+    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    
+    if (switch.isOn and switch.id == "RadioButton1") then
+      globalData.GameLanguage = "en"
+    end
+    
+    if (switch.isOn and switch.id == "RadioButton2") then
+      globalData.GameLanguage = "zh-cn"
+    end
+end
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -60,6 +77,39 @@ function scene:create( event )
 	local sceneGroup = self.view
 	-- Code here runs when the scene is first created but has not yet appeared on screen
   -- print(globalData.GUI_position.loginText.y)
+  
+  uiTxtLanguage = display.newText("Game Language", display.contentCenterX, display.contentHeight * 0.2, native.systemFont, 26)
+  
+  radioGroup = display.newGroup()
+  
+  local radioButton1 = widget.newSwitch(
+    {
+        left = display.contentCenterX *0.4,
+        top = display.contentHeight *0.3,
+        style = "radio",
+        id = "RadioButton1",
+        initialSwitchState = true,
+        onPress = onSwitchPress
+    }
+  )
+  radioGroup:insert( radioButton1 )
+ 
+  local radioButton2 = widget.newSwitch(
+    {
+        left = display.contentCenterX *1.2,
+        top = display.contentHeight *0.3,
+        style = "radio",
+        id = "RadioButton2",
+        onPress = onSwitchPress
+    }
+  )
+  radioGroup:insert( radioButton2 )
+  
+  uiEnglish = display.newText("English", radioButton1.x+70, radioButton1.y, native.systemFont, 26)
+  radioGroup:insert(uiEnglish)
+  
+  uiChinese = display.newText("Chinese", radioButton2.x+70, radioButton2.y, native.systemFont, 26)
+  radioGroup:insert(uiChinese)
   
   txt_username = display.newText( "Input Username: ", globalData.GUI_position.loginText.x, globalData.GUI_position.loginText.y, native.systemFont, globalData.GUI_position.loginText.font )
   
@@ -101,6 +151,8 @@ function scene:create( event )
   sceneGroup:insert(background)
   background:toBack()
   
+  sceneGroup:insert(radioGroup)
+  sceneGroup:insert(uiTxtLanguage)
 end
 
 
