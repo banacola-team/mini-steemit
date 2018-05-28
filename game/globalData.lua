@@ -82,6 +82,7 @@ local M=
     "images/in-game/rewards/orca.png",
     "images/in-game/rewards/redfish.png",
     "images/in-game/rewards/whale.png",
+    "images/in-game/rewards/crab.png",
   }
 }
 
