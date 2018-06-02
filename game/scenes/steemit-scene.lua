@@ -304,8 +304,13 @@ function scene:create( event )
       overFile = "images/in-game/type-pressed.png",
       width = 100,
       height = 40,
+      onPress = 
+      function(event)
+        uiTypeButton:scale(0.8, 0.8)
+      end,
       onRelease = 
       function(event) 
+          uiTypeButton:scale(1.25, 1.25)
           typeText()        
       end
     }
@@ -320,8 +325,13 @@ function scene:create( event )
       overFile = "images/in-game/post-pressed.png",
       width = 100,
       height = 40,
+      onPress = 
+      function(event)
+        uiPostButton:scale(0.8, 0.8)
+      end,
       onRelease = 
       function(event) 
+          uiPostButton:scale(1.25, 1.25)
           postText()
       end
     }
