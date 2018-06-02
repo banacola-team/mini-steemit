@@ -1,0 +1,4 @@
+[submodule "game/steem-corona-sdk"]
+	path = game/steem-corona-sdk
+	url = https://github.com/banacola-team/steem-corona-sdk
+	branch = master
