@@ -83,6 +83,10 @@ local M=
     "images/in-game/rewards/redfish.png",
     "images/in-game/rewards/whale.png",
     "images/in-game/rewards/crab.png",
+    "images/in-game/rewards/children-day.png",
+    "images/in-game/rewards/ninja.png",
+    "images/in-game/rewards/sumo.png",
+    "images/in-game/rewards/starfish.png",
   }
 }
 
