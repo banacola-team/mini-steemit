@@ -87,6 +87,7 @@ local M=
     "images/in-game/rewards/ninja.png",
     "images/in-game/rewards/sumo.png",
     "images/in-game/rewards/starfish.png",
+    "images/in-game/rewards/eos-cat.png",
   }
 }
 
