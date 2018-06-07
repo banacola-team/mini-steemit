@@ -89,6 +89,7 @@ local M=
     "images/in-game/rewards/starfish.png",
     "images/in-game/rewards/eos-cat.png",
     "images/in-game/rewards/bitcoin-hacker.png",
+    "images/in-game/rewards/steem-magic.png",
   }
 }
 
