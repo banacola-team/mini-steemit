@@ -10,10 +10,17 @@ function M.new(options)
   local w = options.width or display.contentWidth * 0.8
   local h = options.height or display.contentHeight * 0.8
   local r = options.radius or 0
-  local rect = display.newRoundedRect(x, y, w, h, r)
-  rect.w = w
-  rect.h = h
-  instance:insert(1, rect)
+  
+  local bg = display.newImageRect("images/in-game/title-content-background.png", w, h)
+  bg.x = x
+  bg.y = y
+  
+  local text = display.newText("", x, y, w, h, native.systemFont, 16)
+  text:setFillColor( 0, 0.5, 1 )
+  
+  instance:insert(1, bg)
+  instance:insert(2, text)
+  text:toFront()
   return instance
 end  
 
@@ -23,17 +30,12 @@ function M.setFillColor(instance, c)
 end
 
 function M.setLabel(instance, txt)
-  local rect = instance[1]
-  instance:remove(2)  
-  instance[2] = nil
-  local text = display.newText(txt, rect.x, rect.y, rect.w, rect.h, native.systemFont, 16)
-  instance:insert(2, text)
-  text:toFront()
-  text:setFillColor( 0, 0.5, 1 )
+  local t = instance[2]
+  t.text = txt
 end
 
 function M.getLabel(instance)
-  local txt = instance[2]
+  local txt = instance[1]
   return txt.text
 end
 

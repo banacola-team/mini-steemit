@@ -272,9 +272,10 @@ function scene:create( event )
       id = "uiTitle",
       label = "",
       labelAlign  = "left",
-      shape = "rect",
+      --shape = "rect",
       width = display.contentWidth * 0.8,
       height = 40,
+      defaultFile = "images/in-game/title-content-background.png",
     })
   uiTitle:setEnabled(false)
   
@@ -288,9 +289,10 @@ function scene:create( event )
       id = "uiTags",
       label = "",
       labelAlign  = "left",
-      shape = "rect",
+      --shape = "rect",
       width = display.contentWidth * 0.8,
       height = 40,
+      defaultFile = "images/in-game/title-content-background.png",
     })
   uiTags:setEnabled(false)
 

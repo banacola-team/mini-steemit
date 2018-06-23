@@ -74,6 +74,7 @@ local M=
   
   GameTime = 1,
   GameLanguage = "en",
+  BGM = nil,
   
   GameRewards = 
   {

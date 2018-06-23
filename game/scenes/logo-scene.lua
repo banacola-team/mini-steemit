@@ -45,6 +45,9 @@ function scene:create( event )
   background.y = display.contentCenterY
   sceneGroup:insert(background)
   background:toBack()
+  
+  -- play bgm
+  audio.play(globalData.BGM, {loop=-1})
 end
 
 
