@@ -3,6 +3,7 @@ local composer = require( "composer" )
 local globalData = require ( "globalData" )
 local scene = composer.newScene()
 local fx = require( "com.ponywolf.ponyfx" )
+local widget = require( "widget" )
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -14,7 +15,8 @@ local summary = nil
 local myBox = nil
 local foreGrp = nil
 local backGrp = nil
-
+local uiPlayAgainBtn = nil
+local uiShareBtn = nil
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -60,6 +62,36 @@ function scene:create( event )
   sceneGroup:insert(background)
   background:toBack()
   
+  uiPlayAgainBtn = widget.newButton({
+	  x = globalData.GUI_position.uiPlayAgainBtn.x,
+      y = globalData.GUI_position.uiPlayAgainBtn.y,
+      id = "uiPlayAgainBtn",
+      label = globalData.language["play_again"],
+      shape = "roundedRect",
+      width = globalData.GUI_position.uiPlayAgainBtn.width,
+      height = globalData.GUI_position.uiPlayAgainBtn.height,
+      onRelease = 
+      function(event)
+		  composer.gotoScene("scenes.login-scene");
+	  end 
+  })
+
+	uiShareBtn = widget.newButton({
+	  x = globalData.GUI_position.uiShareBtn.x,
+      y = globalData.GUI_position.uiShareBtn.y,
+      id = "uiShareBtn",
+      label = globalData.language["share_rewards"],
+      shape = "roundedRect",
+      width = globalData.GUI_position.uiShareBtn.width,
+      height = globalData.GUI_position.uiShareBtn.height,
+      onRelease = 
+      function(event)
+		  
+	  end 
+  })
+  
+  backGrp:insert(uiPlayAgainBtn)
+  backGrp:insert(uiShareBtn)
   sceneGroup:insert(backGrp)
   sceneGroup:insert(foreGrp)
 end
@@ -107,6 +139,8 @@ function scene:destroy( event )
   scene:removeEventListener( "hide", scene )
   scene:removeEventListener( "destroy", scene )
   
+	sceneGroup:removeSelf()
+	sceneGroup = nil
 end
 
 

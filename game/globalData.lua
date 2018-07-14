@@ -13,7 +13,7 @@ local M=
     
     loginTextBox = 
     {
-      x = display.contentWidth * 0.7,
+      x = 500,
       y = display.contentCenterY,
       width = 320,
       height = 36,
@@ -71,6 +71,22 @@ local M=
       x = display.contentCenterX,
       y = 50,
       font = 24
+    },
+    
+    uiPlayAgainBtn = 
+    {
+        x = display.contentWidth * 0.4,
+        y = display.contentCenterY + 150,
+        width = 150,
+        height = 40,
+    },
+    
+    uiShareBtn = 
+    {
+        x = display.contentWidth * 0.6,
+        y = display.contentCenterY + 150,
+        width = 150,
+        height = 40,
     }
   },
   

@@ -20,4 +20,5 @@ globalData.BGM = bgm
 -- 进入主界面
 display.setStatusBar( display.HiddenStatusBar ) 
 math.randomseed( os.time() )
+composer.recycleOnSceneChange = true
 composer.gotoScene("scenes.logo-scene")
