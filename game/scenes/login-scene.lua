@@ -78,7 +78,7 @@ function scene:create( event )
 	-- Code here runs when the scene is first created but has not yet appeared on screen
   -- print(globalData.GUI_position.loginText.y)
   
-  uiTxtLanguage = display.newText("Game Language", display.contentCenterX, display.contentHeight * 0.2, native.systemFont, 26)
+  uiTxtLanguage = display.newText(globalData.language["game_language"], display.contentCenterX, display.contentHeight * 0.2, native.systemFont, 26)
   
   radioGroup = display.newGroup()
   
@@ -124,7 +124,7 @@ function scene:create( event )
       x = globalData.GUI_position.loginSubmitBtn.x,
       y = globalData.GUI_position.loginSubmitBtn.y,
       id = "uiLoginButton",
-      label = "Login",
+      label = globalData.language["login"],
       shape = "roundedRect",
       width = globalData.GUI_position.loginSubmitBtn.width,
       height = globalData.GUI_position.loginSubmitBtn.height,

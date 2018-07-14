@@ -114,13 +114,44 @@ local function typeTitle()
       if (#oldTxt == 0) then
         uiTitle:setLabel(titleArray[wordsIndex])
       else
-        uiTitle:setLabel(oldTxt .. " " .. titleArray[wordsIndex])
+		if globalData.language == "en"  then
+			uiTitle:setLabel(oldTxt .. " " .. titleArray[wordsIndex])
+		else
+			uiTitle:setLabel(oldTxt .. titleArray[wordsIndex])
+		end
       end
       wordsIndex = wordsIndex + 1
   else
       titleFinished = true
       wordsIndex = 1
   end 
+end
+
+local function splitChineseString(input)
+   input = tostring(input)
+   local arr = {}
+   local length = #input
+   local i = 1
+   
+   while i <= length do
+       local curByte = string.byte(input, i)
+        local byteCount = 1;
+        if curByte>=0 and curByte<=127 then
+            byteCount = 1
+        elseif curByte>=192 and curByte<=223 then
+            byteCount = 2
+        elseif curByte>=224 and curByte<=239 then
+            byteCount = 3
+        elseif curByte>=240 and curByte<=247 then
+            byteCount = 4
+        end	
+	
+        local char = string.sub(input, i, i+byteCount-1)
+        i = i+byteCount
+        table.insert(arr, char)       
+		-- print(char)
+   end
+   return arr   
 end
 
 local function splitString(input, delimiter)
@@ -151,10 +182,17 @@ local function pickupJson()
     tags = tags .. " " .. item
   end
   
-  titleArray = splitString(title, " ")
-  contentArray = splitString(content, " ")
-  tagsArray = splitString(tags, " ")
-  prevTxt = ""
+  if globalData.GameLanguage == "en" then
+    titleArray = splitString(title, " ")
+    contentArray = splitString(content, " ")
+    tagsArray = splitString(tags, " ")
+    prevTxt = ""
+   else
+    titleArray = splitChineseString(title)
+    contentArray = splitChineseString(content)
+    tagsArray = splitChineseString(tags)
+    prevTxt = ""
+   end 
 end
 
 local function typeContent()
@@ -165,7 +203,11 @@ local function typeContent()
         prevTxt = contentArray[wordsIndex]
         label.setLabel(uiContent, prevTxt)
       else
-        prevTxt = prevTxt .. " " .. contentArray[wordsIndex]
+		if globalData.language == "en"  then  
+			prevTxt = prevTxt .. " " .. contentArray[wordsIndex]
+		else
+			prevTxt = prevTxt .. contentArray[wordsIndex]
+		end	
         -- uiContent:setLabel(txt)
         label.setLabel(uiContent, prevTxt)
       end
@@ -182,7 +224,11 @@ local function typeTag()
       if (#oldTxt == 0) then
         uiTags:setLabel(tagsArray[wordsIndex])
       else
-        uiTags:setLabel(oldTxt .. " " .. tagsArray[wordsIndex])
+        if globalData.language == "en"  then
+			uiTags:setLabel(oldTxt .. " " .. tagsArray[wordsIndex])
+		else
+			uiTags:setLabel(oldTxt .. tagsArray[wordsIndex])
+		end
       end
       wordsIndex = wordsIndex + 1
     else
@@ -302,6 +348,7 @@ function scene:create( event )
       left = display.contentCenterX * 0.2,
       top = 320,
       id = "uiPostButton",
+      label = "Type",
       defaultFile = "images/in-game/type-normal.png",
       overFile = "images/in-game/type-pressed.png",
       width = 100,
