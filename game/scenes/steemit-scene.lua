@@ -4,6 +4,7 @@ local globalData = require ( "globalData" )
 local json = require("json")
 local fx = require( "com.ponywolf.ponyfx" )
 local label = require( "Label" )
+local CBE = require("CBE.CBE")
 
 local scene = composer.newScene()
 
@@ -50,11 +51,17 @@ local second = 1000
 local tenSecond = 10 * 1000
 local minute = 60
 local click = 0
+local particleLevel = 1
+
 -- json init
 local postsJsonInfo = nil
 
 
 -- 函数声明
+local function generateParticles()
+	
+end
+
 local function wlen( s )
     local len,k=0,1
     while k<=#s do
@@ -117,7 +124,16 @@ local function typeTitle()
 		if globalData.language == "en"  then
 			uiTitle:setLabel(oldTxt .. " " .. titleArray[wordsIndex])
 		else
-			uiTitle:setLabel(oldTxt .. titleArray[wordsIndex])
+			local a = titleArray[wordsIndex]
+			local b = nil
+			
+			if (wordsIndex + 1) <= #titleArray then
+				wordsIndex = wordsIndex + 1
+				b = titleArray[wordsIndex]
+				uiTitle:setLabel(oldTxt .. a .. b)
+			else
+				uiTitle:setLabel(oldTxt .. a)
+			end				
 		end
       end
       wordsIndex = wordsIndex + 1
@@ -134,7 +150,7 @@ local function splitChineseString(input)
    local i = 1
    
    while i <= length do
-       local curByte = string.byte(input, i)
+		local curByte = string.byte(input, i)
         local byteCount = 1;
         if curByte>=0 and curByte<=127 then
             byteCount = 1
@@ -149,7 +165,6 @@ local function splitChineseString(input)
         local char = string.sub(input, i, i+byteCount-1)
         i = i+byteCount
         table.insert(arr, char)       
-		-- print(char)
    end
    return arr   
 end
@@ -206,7 +221,16 @@ local function typeContent()
 		if globalData.language == "en"  then  
 			prevTxt = prevTxt .. " " .. contentArray[wordsIndex]
 		else
-			prevTxt = prevTxt .. contentArray[wordsIndex]
+			local a = contentArray[wordsIndex]
+			local b = nil
+			
+			if (wordsIndex + 1) <= #contentArray then
+				wordsIndex = wordsIndex + 1
+				b = contentArray[wordsIndex]
+				prevTxt = prevTxt .. a .. b
+			else	
+				prevTxt = prevTxt .. a
+			end
 		end	
         -- uiContent:setLabel(txt)
         label.setLabel(uiContent, prevTxt)
@@ -227,7 +251,17 @@ local function typeTag()
         if globalData.language == "en"  then
 			uiTags:setLabel(oldTxt .. " " .. tagsArray[wordsIndex])
 		else
-			uiTags:setLabel(oldTxt .. tagsArray[wordsIndex])
+			local a = tagsArray[wordsIndex]
+			local b = nil
+			
+			if (wordsIndex + 1) <= #tagsArray then
+				wordsIndex = wordsIndex + 1
+				b = tagsArray[wordsIndex]
+				uiTags:setLabel(oldTxt .. a .. b)
+			else
+				uiTags:setLabel(oldTxt .. a)
+			end	
+			
 		end
       end
       wordsIndex = wordsIndex + 1

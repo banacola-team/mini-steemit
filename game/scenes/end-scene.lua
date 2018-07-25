@@ -17,6 +17,7 @@ local foreGrp = nil
 local backGrp = nil
 local uiPlayAgainBtn = nil
 local uiShareBtn = nil
+local uiShareHint = nil
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -53,7 +54,9 @@ function scene:create( event )
 	foreGrp:insert( streaks )
   streaks:toBack()
   
-  uiReward = display.newText("Gain Rewards!", globalData.GUI_position.uiRewards.x, globalData.GUI_position.uiRewards.y, native.systemFont,globalData.GUI_position.uiRewards.font)
+  uiReward = display.newText(globalData.language["gain_rewards"], 
+	  globalData.GUI_position.uiRewards.x, globalData.GUI_position.uiRewards.y, 
+	  native.systemFont,globalData.GUI_position.uiRewards.font)
   backGrp:insert(uiReward)
   
   local background = display.newImage("images/in-game/background.png", 1024, 768)
@@ -89,6 +92,9 @@ function scene:create( event )
 		  
 	  end 
   })
+
+	uiShareHint = display.newText(globalData.language["share_info"], globalData.GUI_position.uiShareHint.x,
+		globalData.GUI_position.uiShareHint.y, native.systemFont,globalData.GUI_position.uiShareHint.font)
   
   backGrp:insert(uiPlayAgainBtn)
   backGrp:insert(uiShareBtn)

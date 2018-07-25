@@ -87,6 +87,13 @@ local M=
         y = display.contentCenterY + 150,
         width = 150,
         height = 40,
+    },
+    
+    uiShareHint =
+    {
+        x = display.contentCenterX,
+        y = display.contentCenterY + 110,
+        font = 24,
     }
   },
   
