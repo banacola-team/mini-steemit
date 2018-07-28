@@ -52,7 +52,7 @@ local tenSecond = 10 * 1000
 local minute = 60
 local click = 0
 local particleLevel = 1
-
+local particleNum = 2
 -- json init
 local postsJsonInfo = nil
 
@@ -60,6 +60,35 @@ local postsJsonInfo = nil
 -- 函数声明
 local function generateParticles()
 	
+	if particleNum > 15 then
+		particleNum = 15
+	end	
+ 	
+	local vent = CBE.newVent({
+
+	positionType = "inRadius",
+	color = {math.random(0,1), math.random(0,1), math.random(0,1)},
+	particleProperties = {blendMode = "add"},
+	emitX = math.random(1, display.contentWidth),
+	emitY = math.random(1, display.contentHeight),
+
+	emissionNum = 1,
+	emitDelay = 5,
+	perEmit = particleNum,
+
+	inTime = 100,
+	lifeTime = 0,
+	outTime = 600,
+
+	onCreation = function(particle)
+		particle:changeColor({
+			color = {0.1, 0.1, 0.1},
+			time = 600
+		})
+	end,
+
+})
+	vent.start()
 end
 
 local function wlen( s )
@@ -121,7 +150,7 @@ local function typeTitle()
       if (#oldTxt == 0) then
         uiTitle:setLabel(titleArray[wordsIndex])
       else
-		if globalData.language == "en"  then
+		if globalData.GameLanguage == "en"  then
 			uiTitle:setLabel(oldTxt .. " " .. titleArray[wordsIndex])
 		else
 			local a = titleArray[wordsIndex]
@@ -218,7 +247,7 @@ local function typeContent()
         prevTxt = contentArray[wordsIndex]
         label.setLabel(uiContent, prevTxt)
       else
-		if globalData.language == "en"  then  
+		if globalData.GameLanguage == "en"  then  
 			prevTxt = prevTxt .. " " .. contentArray[wordsIndex]
 		else
 			local a = contentArray[wordsIndex]
@@ -248,7 +277,7 @@ local function typeTag()
       if (#oldTxt == 0) then
         uiTags:setLabel(tagsArray[wordsIndex])
       else
-        if globalData.language == "en"  then
+        if globalData.GameLanguage == "en"  then
 			uiTags:setLabel(oldTxt .. " " .. tagsArray[wordsIndex])
 		else
 			local a = tagsArray[wordsIndex]
@@ -275,14 +304,17 @@ local function typeText()
   if (titleFinished == false) then
     typeTitle()
     click = click + 1
+	generateParticles()
   end
   if (titleFinished and contentFinished == false) then
     typeContent()
     click = click + 1
+	generateParticles()
   end  
   if (titleFinished and contentFinished and tagsFinished == false) then
     typeTag()
     click = click + 1
+	generateParticles()
   end  
   if (titleFinished and contentFinished and tagsFinished) then
     currentStatus = buttonStatus["Post"]
@@ -394,7 +426,8 @@ function scene:create( event )
       onRelease = 
       function(event) 
           uiTypeButton:scale(1.25, 1.25)
-          typeText()        
+          typeText()   
+		  particleNum = particleNum + 1
       end
     }
   )

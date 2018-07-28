@@ -11,9 +11,6 @@ local globalData = require( "globalData" )
 local json = require("json")
 local CBE = require("CBE.CBE")
 
--- local vent = CBE.newVent({preset = "burn"})
--- vent:start({time = 1})
-
 -- 语言处理
 globalData.language = json.decodeFile( system.pathForFile( "json-content/ui_en-US.json", system.ResourceDirectory ) )
 
