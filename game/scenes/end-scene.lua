@@ -98,6 +98,7 @@ function scene:create( event )
   
   backGrp:insert(uiPlayAgainBtn)
   backGrp:insert(uiShareBtn)
+	backGrp:insert(uiShareHint)
   sceneGroup:insert(backGrp)
   sceneGroup:insert(foreGrp)
 end
