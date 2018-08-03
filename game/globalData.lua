@@ -93,7 +93,7 @@ local M=
     {
         x = display.contentCenterX,
         y = display.contentCenterY + 110,
-        font = 24,
+        font = 18,
     }
   },
   
