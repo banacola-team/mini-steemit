@@ -136,6 +136,10 @@ function scene:create( event )
           -- print("empty string")
           return
         end
+        
+        if string.len(username) > 32 then
+          username = string.sub(username, 1, 32)
+        end
         globalData.username = username
         composer.gotoScene("scenes.steemit-scene");
       end

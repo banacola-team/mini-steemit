@@ -6,15 +6,15 @@ local M=
   {
     loginText = 
     {
-      x = 200,
+      x = display.contentWidth * 0.3,
       y = display.contentCenterY,
       font = 36,
     },
     
     loginTextBox = 
     {
-      x = 500,
-      y = display.contentCenterY,
+      x = display.contentWidth * 0.32,
+      y = display.contentHeight * 0.25,
       width = 320,
       height = 36,
     },
@@ -36,9 +36,9 @@ local M=
     
     uiUsername = 
     {
-      x = display.contentWidth * 0.3,
-      y = 50,
-      width = 300,
+      x = display.contentWidth * 0.25,
+      y = display.contentHeight * 0.1,
+      width = display.contentWidth *0.2,
       height = 0,
       font = 20,
     },
@@ -46,7 +46,7 @@ local M=
     uiCoins = 
     {
       x = display.contentWidth - 150,
-      y = 50,
+      y = display.contentHeight * 0.1,
       width = 200,
       height = 0,
       font = 20,
@@ -55,7 +55,7 @@ local M=
     uiStatistic = 
     {
       x = display.contentCenterX,
-      y = 100,
+      y = display.contentHeight * 0.1,
       font = 20,
     },
     
@@ -94,7 +94,16 @@ local M=
         x = display.contentCenterX,
         y = display.contentCenterY + 110,
         font = 18,
-    }
+    },
+    
+    uiTag = 
+    {},
+    
+    uiTitle = 
+    {},
+    
+    uiContent = 
+    {}
   },
   
   GameTime = 1,

@@ -75,7 +75,7 @@ function scene:create( event )
       height = globalData.GUI_position.uiPlayAgainBtn.height,
       onRelease = 
       function(event)
-		  composer.gotoScene("scenes.login-scene");
+		  composer.gotoScene("scenes.steemit-scene");
 	  end 
   })
 

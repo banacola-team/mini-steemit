@@ -40,7 +40,7 @@ function scene:create( event )
   transition.fadeIn(mini_steemit, fi_param)
   
   sceneGroup:insert(mini_steemit)
-  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  local background = display.newImage("images/in-game/background.png", display.actualContentWidth, display.actualContentHeight)
   background.x = display.contentCenterX
   background.y = display.contentCenterY
   sceneGroup:insert(background)

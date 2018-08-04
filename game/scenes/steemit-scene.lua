@@ -379,30 +379,31 @@ function scene:create( event )
 
   -- title
   uiTitle = widget.newButton({
-      left = display.contentCenterX * 0.2,
+      left = display.contentWidth * 0.15,
       top = top_base + 80,
       id = "uiTitle",
       label = "",
       labelAlign  = "left",
       --shape = "rect",
-      width = display.contentWidth * 0.8,
+      width = display.contentWidth * 0.7,
       height = 40,
       defaultFile = "images/in-game/title-content-background.png",
     })
   uiTitle:setEnabled(false)
   
-  uiContent = label.new({x=display.contentCenterX, y=top_base+175, width=display.contentWidth * 0.8, height=100})
+  -- content
+  uiContent = label.new({x=display.contentCenterX, y=top_base+175, width=display.contentWidth * 0.7, height=100})
   label.setLabel(uiContent, prevTxt)
   
   -- tags
   uiTags = widget.newButton({
-      left = display.contentCenterX * 0.2,
+      left = display.contentWidth * 0.15,
       top = top_base + 230,
       id = "uiTags",
       label = "",
       labelAlign  = "left",
       --shape = "rect",
-      width = display.contentWidth * 0.8,
+      width = display.contentWidth * 0.7,
       height = 40,
       defaultFile = "images/in-game/title-content-background.png",
     })
@@ -411,8 +412,8 @@ function scene:create( event )
   -- post button
   uiTypeButton = widget.newButton(
     {
-      left = display.contentCenterX * 0.2,
-      top = 320,
+      left = display.contentWidth * 0.15,
+      top = top_base + 320,
       id = "uiPostButton",
       label = "Type",
       defaultFile = "images/in-game/type-normal.png",
@@ -434,8 +435,8 @@ function scene:create( event )
   
   uiPostButton = widget.newButton(
     {
-      left = display.contentCenterX * 0.2,
-      top = 320,
+      left = display.contentWidth * 0.15,
+      top = top_base+320,
       id = "uiPostButton",
       defaultFile = "images/in-game/post-normal.png",
       overFile = "images/in-game/post-pressed.png",
@@ -482,7 +483,7 @@ function scene:create( event )
   sceneGroup:insert(uiMail)
   sceneGroup:insert(uiTimer)
   
-  local background = display.newImage("images/in-game/background.png", 1024, 768)
+  local background = display.newImage("images/in-game/background.png", display.contentWidth, display.contentHeight)
   background.x = display.contentCenterX
   background.y = display.contentCenterY
   sceneGroup:insert(background)

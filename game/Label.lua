@@ -15,7 +15,7 @@ function M.new(options)
   bg.x = x
   bg.y = y
   
-  local text = display.newText("", x, y, w, h, native.systemFont, 16)
+  local text = display.newText("", x, y, w-15, h, native.systemFont, 16)
   text:setFillColor( 0, 0.5, 1 )
   
   instance:insert(1, bg)
