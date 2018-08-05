@@ -415,7 +415,7 @@ function scene:create( event )
       left = display.contentWidth * 0.15,
       top = top_base + 320,
       id = "uiPostButton",
-      label = "Type",
+      label = "TYPE",
       defaultFile = "images/in-game/type-normal.png",
       overFile = "images/in-game/type-pressed.png",
       width = 100,
