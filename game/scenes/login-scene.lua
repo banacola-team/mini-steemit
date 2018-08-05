@@ -111,10 +111,10 @@ function scene:create( event )
   uiChinese = display.newText("Chinese", radioButton2.x+70, radioButton2.y, native.systemFont, 26)
   radioGroup:insert(uiChinese)
   
-  txt_username = display.newText( "Input Username: ", globalData.GUI_position.loginText.x, globalData.GUI_position.loginText.y, native.systemFont, globalData.GUI_position.loginText.font )
+  -- txt_username = display.newText( "Input Username: ", globalData.GUI_position.loginText.x, globalData.GUI_position.loginText.y, native.systemFont, globalData.GUI_position.loginText.font )
   
-  ui_textBox = native.newTextField( globalData.GUI_position.loginTextBox.x, globalData.GUI_position.loginTextBox.y, globalData.GUI_position.loginTextBox.width, globalData.GUI_position.loginTextBox.height )
-  ui_textBox:addEventListener("userInput", textListener)
+  -- ui_textBox = native.newTextField( globalData.GUI_position.loginTextBox.x, globalData.GUI_position.loginTextBox.y, globalData.GUI_position.loginTextBox.width, globalData.GUI_position.loginTextBox.height )
+  -- ui_textBox:addEventListener("userInput", textListener)
   
   error_msg = display.newText( "Exceeded 32 characters", globalData.GUI_position.loginErrMsg.x, globalData.GUI_position.loginErrMsg.y, native.systemFont, globalData.GUI_position.loginErrMsg.font )
   
@@ -130,7 +130,8 @@ function scene:create( event )
       height = globalData.GUI_position.loginSubmitBtn.height,
       onRelease = 
       function(event) 
-        local username = ui_textBox.text
+        -- local username = ui_textBox.text
+		local username = " "
         
         if (string.len(username) == 0) then
           -- print("empty string")
@@ -147,7 +148,7 @@ function scene:create( event )
   -- 本地对象不能加入到场景组中，在hide事件中删除
   sceneGroup:insert(submit_btn)
   sceneGroup:insert(error_msg)
-  sceneGroup:insert(txt_username)
+ -- sceneGroup:insert(txt_username)
   
   local background = display.newImage("images/in-game/background.png", 1024, 768)
   background.x = display.contentCenterX
@@ -187,8 +188,8 @@ function scene:hide( event )
 
 	elseif ( phase == "did" ) then
 		-- Code here runs immediately after the scene goes entirely off screen    
-    ui_textBox:removeSelf()
-    ui_textBox = nil
+    -- ui_textBox:removeSelf()
+    -- ui_textBox = nil
 	end
 end
 
