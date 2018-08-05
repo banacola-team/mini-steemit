@@ -10,6 +10,9 @@
     "post_button": "POST",
     "gain_rewards": "Badge Gained",
     "play_again": "Play Again",
-    "share_rewards": "Share Badge",
-    "share_info": "Earn STEEM/SBD by sharing badge to steemit, we will upvote you!"
+    "share_rewards": "TODO",
+    "share_info": "",
+    "share_rewards_todo": "Share Badge",
+    "share_info_todo": "Earn STEEM/SBD by sharing badge to steemit, we will upvote you!"
+    
 }
