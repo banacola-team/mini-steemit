@@ -7,6 +7,70 @@
     ]
   },
   {
+    "title": "新手村",
+    "content": "新人吗？进新手村可以帮助你快速成长啊！想进村就找一下村长@ericet",
+    "tags": [
+      "mini-steemit",
+      "cn-team"
+    ]
+  },
+  {
+    "title": "软哥咖喱",
+    "content": "有吃过软哥咖喱吗？那可是软哥@softmetal精心泡制，特具异国风情，只应天上有的美味。如果买外卖的话还有阿朵@itchyfeetdonica 开着拖拉机冒着风雨送单呢！记得来新手村下订单啊！",
+    "tags": [
+      "mini-steemit",
+      "cn-team"
+    ]
+  },
+  {
+    "title": "刘美女是不是美女",
+    "content": "这个千古之迷应该是没什么办法知道了。因为听说见过刘美女@deanliu真面目的人都签了生死之约，永世不能说出刘美女的真面目！不过话说回来，@deanliu可是中文区元老，对中文区新人爱护有加！不管他是不是美女，我们还是要谢谢他对中文区的支持！",
+    "tags": [
+      "mini-steemit",
+      "deanliu"
+    ]
+  },
+  {
+    "title": "新手村龙虎豹",
+    "content": "什么是龙虎豹？不是杂志，也不是乐队！他们是新手村三宝，阿龙@ericet，阿虎@softmetal, 阿豹@honoru。虽然听上去是黑社会，其实都是和蔼可亲的宅男啊！",
+    "tags": [
+      "mini-steemit",
+      "cn-team"
+    ]
+  },
+  {
+    "title": "甜心姐是谁？",
+    "content": "甜心姐是谁你也不知道你就别在中文区混了！@sweetsssj可是中文区Steemit上最有名的人，每次发帖都几千个赞！人长得甜美，双语游记又写得精彩，是中文区的好榜样！",
+    "tags": [
+      "mini-steemit",
+      "sweetsssj"
+    ]
+  },
+  {
+    "title": "苹果之真面目",
+    "content": "老是只看到背面的苹果姐@dancingapple到底是不是真的长得像热巴一样？那这要问问去过广州聚会的才知道。不过身为又懂古董又会书法的cn区大才女文采一流，气质也肯定不差哦！",
+    "tags": [
+      "mini-steemit",
+      "dancingapple"
+    ]
+  },
+  {
+    "title": "宠物爱好者测试",
+    "content": "你是中文区的宠物爱好者？那你告诉我，这几只是谁的宠物:小白条，Fiona，毛毛，Hazel。",
+    "tags": [
+      "mini-steemit",
+      "dpet"
+    ]
+  },
+  {
+    "title": "宠物大卡",
+    "content": "喜欢宠物吗？那就一定要参加@dpet的宠物照片比赛。@dpet 可是宠物大卡@kona一手创办，喜欢动物的朋友一定不能错过！",
+    "tags": [
+      "mini-steemit",
+      "dpet"
+    ]
+  },
+  {
     "title": "如何快速注册steemit账号",
     "content": "嗯，您可以尝试 https://cnsteem.io/ 花一点小钱，快速注册成功！",
     "tags": [
@@ -39,11 +103,60 @@
     ]
   },
   {
+    "title": "机器人三角恋",
+    "content": "从前只有cnbuddy. 然后淘气包出现了。两个哥们没什么交集，直到小可可的出现。cnbuddy 觉得恋爱了，可是小可可早已心有所属，每天和淘气包打情骂俏秀恩爱，看得cnbuddy羡慕嫉妒恨。终于有一天，cnbuddy鼓起勇气向小可可表白。然后，就没有然后了。",
+    "tags": [
+      "mini-steemit",
+      "cnbuddy"
+    ]
+  },
+  {
     "title": "华语好声音，身为麦霸的你不要错过哟！",
     "content": "这声音美的让人起鸡皮疙瘩哒，简直陶醉本尊了，快扶我一下...",
     "tags": [
       "mini-steemit",
       "cn-voice"
     ]
+  },
+  {
+    "title": "什么是见证人",
+    "content": "见证人是在STEEM上出区块的人，对社区有莫大贡献。他们对STEEM区块链的开发动向有一定的话事权啊！所以为了中文区的发展，记得投中文区的见证人:@abit,  @justyy,  @bobdos， @skenan 和 @ety001一票啊！",
+    "tags": [
+      "mini-steemit",
+      "witness"
+    ]
+  },
+  {
+    "title": "DApp.Wang",
+    "content": "有用过DApp.Wang吗？DApp.Wang 是个发掘和分享DApp的网站，专门分享一些靠谱，又能赚钱的DApp.  它是中文区元老菊老板@jubi, 大鹏哥 @dapeng，@maiyude和@jianan所创建，大家记得要去看看啊！",
+    "tags": [
+      "mini-steemit",
+      "dapp-wang"
+    ]
+  },
+  {
+    "title": "闻达合唱团",
+    "content": "谁最爱唱歌？当然是温妮@winniex了！人美声甜的她还和大鹏哥@dapeng,  拉仔@davidke20，还有@windowglass 组成了WINDA闻达合唱团，喜欢听歌的一定要去听一下啊！",
+    "tags": [
+      "mini-steemit",
+      "cn-voice"
+    ]
+  },
+  {
+    "title": "阿朵？阿多？",
+    "content": "知道阿朵是谁吗？对，拉拖拉机的那个。不过她可不是个村姑哦。人家@itchyfeetdonica 是周游列国的大美女+摄影达人，不知道有多少宅男在她的博客等着看她的自拍哦！当然阿多的双语游记和照片也频频得奖，不容错过啊！",
+    "tags": [
+      "mini-steemit",
+      "itchyfeetdonica"
+    ]
+  },
+  {
+    "title": "笔哥",
+    "content": "笔哥是谁？不知道笔哥是谁就别玩了！毕竟笔哥正在帮你写这条帖子呐！记得关注@stabilowl啊！虽然最近都在忙Steemgg,  我偶尔还是会写下游记的，记得支持啊！",
+    "tags": [
+      "mini-steemit",
+      "stabilowl"
+    ]
   }
+  
 ]
