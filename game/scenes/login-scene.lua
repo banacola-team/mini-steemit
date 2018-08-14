@@ -20,6 +20,7 @@ local radioGroup = nil
 local uiTxtLanguage = nil
 local uiEnglish = nil
 local uiChinese = nil
+local uiCopyright = nil
 
 local function hideError()
   transition.fadeOut(error_msg, {time=500, onComplete = function() show = false end})
@@ -79,6 +80,8 @@ function scene:create( event )
   -- print(globalData.GUI_position.loginText.y)
   
   uiTxtLanguage = display.newText(globalData.language["game_language"], display.contentCenterX, display.contentHeight * 0.2, native.systemFont, 26)
+  
+  uiCopyright = display.newText("Copyright © mini-steemit", display.contentCenterX, display.contentHeight * 0.8, native.systemFont, 20)
   
   radioGroup = display.newGroup()
   
@@ -158,6 +161,7 @@ function scene:create( event )
   
   sceneGroup:insert(radioGroup)
   sceneGroup:insert(uiTxtLanguage)
+  sceneGroup:insert(uiCopyright)
 end
 
 
